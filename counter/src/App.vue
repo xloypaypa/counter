@@ -8,6 +8,10 @@
       v-bind:value="getCountByIndex(index - 1)"
       v-on:updateCounter="updateCounter"
     />
+    <div>
+      sum: 
+      {{getSum()}}
+    </div>
   </div>
 </template>
 
@@ -34,6 +38,14 @@ export default {
         this.counts.push(oldCounts[i]);
       }
       console.log(this.counts);
+    },
+    getSum: function() {
+      let num = this.getNum();
+      let result = 0;
+      for (let i = 0; i < num; i++) {
+        result += this.counts[i];
+      }
+      return result;
     },
     getCountByIndex: function(index) {
       return this.counts[index];
