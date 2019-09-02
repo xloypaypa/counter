@@ -5,8 +5,6 @@
       v-for="index in getNum()"
       v-bind:key="index"
       v-bind:index="index"
-      v-bind:value="getCountByIndex(index - 1)"
-      v-on:updateCounter="updateCounter"
     />
     <div>
       sum: 
@@ -25,39 +23,18 @@ export default {
   },
   data: function() {
     return {
-      numInput: "0",
-      counts: []
-    };
+      numInput: "0"
+    }
   },
   methods: {
-    updateCounter: function(value) {
-      let oldCounts = this.counts;
-      oldCounts[value.index] = value.value;
-      this.counts = [];
-      for (let i = 0; i < oldCounts.length; i++) {
-        this.counts.push(oldCounts[i]);
-      }
-      console.log(this.counts);
-    },
     getSum: function() {
-      let num = this.getNum();
-      let result = 0;
-      for (let i = 0; i < num; i++) {
-        result += this.counts[i];
-      }
-      return result;
+      return this.$store.getters.getSum();
     },
     getCountByIndex: function(index) {
-      return this.counts[index];
+      return this.$store.getters.getSum();
     },
     updateNum: function() {
-      let num = this.getNum();
-      while (this.counts.length < num) {
-        this.counts.push(this.counts.length + 1);
-      }
-      while (this.counts.length > num) {
-        this.counts.pop();
-      }
+      this.$store.commit('updateNum', this.getNum());
     },
     getNum: function() {
       let isNum = function(numString) {
